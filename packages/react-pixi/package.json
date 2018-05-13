@@ -1,0 +1,15 @@
+{
+  "name": "react-pixi",
+  "version": "0.0.0",
+  "description": "React Webgl / Canvas renderer based on Pixi.js",
+  "main": "src/index.js",
+  "repository": "git@github.com:jbovenschen/react-pixi.git",
+  "author": "Jaco Bovenschen <jaco1994bovenschen@gmail.com>",
+  "license": "UNLICENSED",
+  "private": false,
+  "dependencies": {
+    "fbjs": "^0.8.16",
+    "pixi.js": "^4.7.3",
+    "react-reconciler": "^0.10.0"
+  }
+}
