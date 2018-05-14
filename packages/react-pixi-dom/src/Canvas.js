@@ -8,12 +8,14 @@ class Container extends Component {
     this.app = new Application({
       view: this.canvas,
       backgroundColor: 0xFF0000,
+      width: this.props.width,
+      height: this.props.height,
     });
 
     this.mountNode = Renderer.createContainer(this.app);
 
     Renderer.updateContainer(
-      React.createElement(Root, {}, this.props.children),
+      React.createElement(Root, { style: { width: this.props.width, height: this.props.height } }, this.props.children),
       this.mountNode,
       this,
     )
@@ -21,7 +23,7 @@ class Container extends Component {
 
   componentDidUpdate() {
     Renderer.updateContainer(
-      React.createElement(Root, {}, this.props.children),
+      React.createElement(Root, { width: this.props.width, height: this.props.height }, this.props.children),
       this.mountNode,
       this,
     )

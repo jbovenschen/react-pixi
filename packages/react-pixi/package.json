@@ -10,6 +10,7 @@
   "dependencies": {
     "fbjs": "^0.8.16",
     "pixi.js": "^4.7.3",
-    "react-reconciler": "^0.10.0"
+    "react-reconciler": "^0.10.0",
+    "yoga-layout": "^1.9.3"
   }
 }

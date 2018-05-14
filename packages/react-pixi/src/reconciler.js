@@ -18,7 +18,7 @@ const PixiRenderer = ReactReconciler({
   },
 
   createInstance(type, props, internalInstanceHandle) {
-    return createElement(type, props);
+    return createElement(type, props, internalInstanceHandle);
   },
 
   createTextInstance(text, rootContainerInstance, internalInstanceHandle) {
@@ -50,11 +50,12 @@ const PixiRenderer = ReactReconciler({
   },
 
   getRootHostContext(instance) {
-    return emptyObject;
+    // return emptyObject;
 
-    const a = getHostContextNode(instance);
-    console.log('getRootHostContext', a);
-    return a;
+    // const a = getHostContextNode(instance);
+    // console.log('getRootHostContext', a);
+    // return a;
+    return emptyObject;
   },
 
   getChildHostContext(instance) {
@@ -67,26 +68,30 @@ const PixiRenderer = ReactReconciler({
 
   now: () => {},
 
-  // isPrimaryRenderer: false,
+  isPrimaryRenderer: false,
 
   useSyncScheduling: true,
 
   mutation: {
     appendChild(parentInstance, child) {
       console.log('appendChild', parentInstance);
-      console.dir(parentInstance);
 
       if (parentInstance.appendChild) {
         parentInstance.appendChild(child);
       }
-      // if (typeof child.render === 'function')
-      //   child.render(parentInstance.element); // we just added a new child, so we want to render it
+
+      if (typeof child.render === 'function')
+        child.render(parentInstance.element); // we just added a new child, so we want to render it
     },
 
     appendChildToContainer(parentInstance, child) {
-      if (parentInstance.appendChild) {
-        parentInstance.appendChild(child);
-      }
+      // child.render();
+
+      console.log('appendChildToContainer', parentInstance, child);
+
+      // if (parentInstance.appendChild) {
+      //   parentInstance.appendChild(child);
+      // }
     },
 
     removeChild(parentInstance, child) {
@@ -94,7 +99,9 @@ const PixiRenderer = ReactReconciler({
     },
 
     removeChildFromContainer(parentInstance, child) {
-      parentInstance.removeChild(child);
+      console.log('removeChildFromContainer', parentInstance, child);
+
+      // parentInstance.removeChild(child);
     },
 
     insertBefore(parentInstance, child, beforeChild) {
@@ -102,6 +109,8 @@ const PixiRenderer = ReactReconciler({
     },
 
     commitUpdate(instance, updatePayload, type, oldProps, newProps) {
+      console.log('commitUpdate', instance);
+
       // if (typeof instance.update !== 'undefined') {
       //   instance.update(oldProps, newProps);
       // }
