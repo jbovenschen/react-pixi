@@ -14,6 +14,7 @@ const styles = Stylesheet.create({
     flexBasis: 40,
     flexGrow: 0,
     flexShrink: 0,
+    width: 40,
     height: 40,
   }
 })

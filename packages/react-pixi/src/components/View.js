@@ -9,14 +9,16 @@ class View extends Base {
     this.container = new Container();
   }
 
-  render() {
-    console.log('render', this.container, this.layout);
-  }
-
   appendChild(child) {
     super.appendChild(child);
 
     this.container.addChild(child.container);
+  }
+
+  removeChild(child) {
+    super.removeChild(child);
+
+    this.container.removeChild(child.container);
   }
 }
 

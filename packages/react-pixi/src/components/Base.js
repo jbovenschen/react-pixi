@@ -1,4 +1,5 @@
 import yoga, { Node } from 'yoga-layout';
+import { Graphics } from 'pixi.js';
 
 const LAYOUT_SETTERS = [
   'width',
@@ -39,8 +40,6 @@ class Base {
 
     this.setDefaultProps();
     this.applyProps(this.props);
-
-    console.log(this.node.getComputedLayout());
   }
 
   setDefaultProps() {
@@ -72,6 +71,8 @@ class Base {
     child.parent = this;
     // add a child to the list to be rendered
     this.children.push(child);
+    // Append children for yoga layout
+    this.node.insertChild(child.node);
   }
 
   removeChild(child) {
@@ -79,6 +80,8 @@ class Base {
     child.parent = null;
 
     this.children.splice(index, 1);
+
+    this.node.removeChild(child.node);
   }
 
   update(oldProps, newProps) {
@@ -91,12 +94,43 @@ class Base {
     }
   }
 
-  calcLayout() {
+  getComputedLayout() {
+    return this.node.getComputedLayout();
+  }
 
+  setLayout() {
+    const parentLayout = this.parent.getComputedLayout();
+
+    const layout = this.node.getComputedLayout();
+
+    this.container.width = layout.width;
+    this.container.height = layout.height;
+    this.container.y = layout.top;
+    this.container.x = layout.left;
+    
+    this.container.calculateBounds();
+    console.log(layout.width, this.container.width);
+  }
+
+  setGraphics() {
+    const layout = this.node.getComputedLayout();
+
+    const graphics = new Graphics();
+
+    graphics.beginFill(0xFFFF00);
+
+    graphics.drawRect(0, 0, layout.width, layout.height);
+
+    this.container.addChild(graphics);
   }
 
   render() {
-    console.log(this.name, this.children);
+    this.node.calculateLayout();
+
+    this.setLayout();
+    this.setGraphics();
+
+    console.log(this.constructor.name, this.children);
 
     this.children.forEach(child => child.render());
   }

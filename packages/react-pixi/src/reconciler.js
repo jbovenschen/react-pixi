@@ -89,6 +89,8 @@ const PixiRenderer = ReactReconciler({
 
       console.log('appendChildToContainer', parentInstance, child);
 
+
+      child.render();
       // if (parentInstance.appendChild) {
       //   parentInstance.appendChild(child);
       // }

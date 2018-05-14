@@ -10,6 +10,16 @@ class Root extends Base {
 
     this.root.stage.addChild(child.container);
   }
+
+  removeChild(child) {
+    super.removeChild(child);
+
+    this.root.stage.removeChild(child.container);
+  }
+
+  render() {
+    this.children.forEach(child => child.render());
+  }
 }
 
 Root.defaultProps = {
